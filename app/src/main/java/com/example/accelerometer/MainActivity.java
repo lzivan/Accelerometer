@@ -2,11 +2,13 @@ package com.example.accelerometer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.SeekBar;
@@ -14,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
-
+    public static String MA = "MainActivity";
     SeekBar seekb;
     int status = 10;
     TextView txtS;
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         txtS = (TextView) findViewById(R.id.txtStatus);
         seekb = (SeekBar) findViewById(R.id.seekBar);
@@ -67,12 +71,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             if (Math.abs(sensorEvent.values[0]) > status) {
+                Log.w(MA,"The significant Move is on X axis" + R.layout.activity_main);
                  Toast.makeText(this, "Important on X: " + sensorEvent.values[0], Toast.LENGTH_SHORT).show();
             }
             if (Math.abs(sensorEvent.values[1]) > status) {
+                Log.w(MA,"The significant Move is on Y axis" + R.layout.activity_main);
                  Toast.makeText(this, "Important on Y: " + sensorEvent.values[1], Toast.LENGTH_SHORT).show();
             }
             if (Math.abs(sensorEvent.values[2]) > status) {
+                Log.w(MA,"The significant Move is on Z axis" + R.layout.activity_main);
                  Toast.makeText(this, "Important on Z: " + sensorEvent.values[2], Toast.LENGTH_SHORT).show();
             }
 
