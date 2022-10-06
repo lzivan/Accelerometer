@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent sensorEvent) {
 
         if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            float directionSum = Math.abs((sensorEvent.values[0])) + Math.abs((sensorEvent.values[1])) + Math.abs((sensorEvent.values[2]));
+
             if (Math.abs(sensorEvent.values[0]) > status) {
                 Log.w(MA,"The significant Move is on X axis" + R.layout.activity_main);
                  Toast.makeText(this, "Important on X: " + sensorEvent.values[0], Toast.LENGTH_SHORT).show();
@@ -93,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }else if (Math.abs(sensorEvent.values[2]) >= Math.max(Math.abs(sensorEvent.values[1]),Math.abs(sensorEvent.values[0]))
                     && Math.abs(sensorEvent.values[2]) > status){
                 wv.loadUrl("https://webb.nasa.gov/");
+            }
+            
+             if (directionSum > 25){
+                wv.loadUrl("https://jumpingjaxfitness.files.wordpress.com/2010/07/dizziness.jpg");
             }
 
         }
